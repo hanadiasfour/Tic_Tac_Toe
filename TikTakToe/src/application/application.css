@@ -1,0 +1,49 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.my-button{
+	
+	  -fx-font-size: 20.0px; 
+      -fx-background-color: black; 
+      -fx-text-fill: white; 
+      -fx-border-color: turquoise;  
+      -fx-border-width: 3.0px;   	
+      -fx-font-weight: bold; /* Set the font weight */
+      -fx-effect: dropshadow(gaussian, turquoise, 10.0, 0.0, 0.0, 0.0);
+}
+
+.my-button:hover{
+	
+	      -fx-border-color: #FF61D5;  
+	      -fx-border-width: 3.5px;   	
+	      -fx-effect: dropshadow(gaussian, #FF61D5, 10.0, 0.0, 0.0, 0.0);
+	
+	
+}
+
+.text-field{
+	
+		-fx-font-size: 20.0px; 
+		-fx-background-color: black; 
+      	-fx-text-fill: white; 
+      	-fx-border-color: turquoise;  
+      	-fx-border-width: 3.0px;   	
+      	-fx-font-weight: bold; /* Set the font weight */
+      	-fx-effect: dropshadow(gaussian, turquoise, 10.0, 0.0, 0.0, 0.0);
+	
+	
+}
+
+
+.text-field:focused{
+
+      	-fx-border-color: #FF61D5;  
+      	-fx-effect: dropshadow(gaussian, #FF61D5, 10.0, 0.0, 0.0, 0.0);
+	
+	
+}
+
+
+.button:disabled {
+    -fx-opacity: 1.0; /* Set opacity to 1 to prevent dimming */
+}
+
+
