@@ -16,6 +16,8 @@ public class TicTacToe {
 	private Player currentPlayer;
 	private int movesLeft;
 	private int linefrom, lineto, currentRound, totRound, gameMode;
+	private MyPane pane;
+
 
 	public TicTacToe(Player player1, Player player2, int round, int gameMode, MyPane pane) {
 		this.player1 = player1;
@@ -137,7 +139,6 @@ public class TicTacToe {
 				String[][] dummyBoard = copyBoard(board);
 
 				minMaxNode root = new minMaxNode(true, dummyBoard);
-				pane.setPossibility(new String[3][3]);
 
 				miniMax(root);
 				String[][] dummyBoard2 = copyBoard(board);
@@ -147,51 +148,10 @@ public class TicTacToe {
 
 				pane.addsymbol(currentPlayer.getSymbol(), root.getMove());
 
-				///////////////////////////////////////////////////////////////////////
-				//////////////////////////////////////////////////////////////////////
-				boolean nextRound = false;
-
-				if (getValidMoves(dummyBoard2)[0] <= 4 && getValidMoves(dummyBoard2)[0] >= 3) {
-
-					stage = pane.getprobabilityStage(dummyBoard2, root.getMove());
-					stage.show();
-					pane.getNextRound().setVisible(true);
-
-					pane.getNextRound().setOnAction(e -> {
-
-						boolean result = isVictory(board, currentPlayer.getSymbol());
-
-						if (result) {
-
-							currentPlayer.setScore(currentPlayer.getScore() + 1);
-							pane.getScore2lbl().setText(currentPlayer.getScore() + "");
-							emptyCanvas(pane);
-
-						} else {
-							emptyCanvas(pane);
-//							humanPlay(pane);
-
-						}
-
-						pane.getNextRound().setVisible(false);
-
-					});
-
-				}
-
-			}
 
 			boolean result = isVictory(board, currentPlayer.getSymbol());
 
-			if (result && getValidMoves(board)[0] + 1 <= 4 && getValidMoves(board)[0] + 1 >= 3) {
-				pane.drawLine(linefrom, lineto, currentPlayer.getColor());
-//				pane.drawLine(linefrom, lineto, currentPlayer.getColor());
-//				currentPlayer.setScore(currentPlayer.getScore() + 1);
-//				pane.getScore2lbl().setText(currentPlayer.getScore() + "");
-
-			}
-
-			else if (result) {
+			 if (result) {
 
 				pane.drawLine(linefrom, lineto, currentPlayer.getColor());
 				currentPlayer.setScore(currentPlayer.getScore() + 1);
@@ -246,13 +206,7 @@ public class TicTacToe {
 			minMaxNode child = new minMaxNode(!node.isMax(), dummyBoard);// creating node with new board
 
 			child.setMove(validMoves[i]);// assigning what was the move that led to this board
-
-			// checking if there is 3 moves left in the entire game board
-			if ((getValidMoves(board)[0] <= 5) && node.getMove() == 0)
-				child.setInitialMove(validMoves[i]);
-
-			else// more than 3 spaces left
-				child.setInitialMove(node.getInitialMove());
+			child.setInitialMove(node.getInitialMove());
 
 			node.getChildNodes().addLast(child);// adding the new board child to the source node
 			miniMax(child);// recursive call with new board
@@ -269,11 +223,6 @@ public class TicTacToe {
 
 				minMaxNode currentNode = curr.getElement();
 				int stat = currentNode.getStatus();
-
-				// if only the last three spots are available
-				if (getValidMoves(board)[0] <= 4 && getValidMoves(board)[0] >= 3)
-					if (currentNode.isTerminal()) // only if terminal add its probability to the grid
-						selectSpot(currentNode.getInitialMove(), pane.getPossibility(), currentNode.getStatus() + "");
 
 				if (maxStatus <= stat) {// getting the max status from children
 					maxStatus = stat;
@@ -294,14 +243,7 @@ public class TicTacToe {
 			while (curr != null) {// looping through children nodes (boards)
 
 				minMaxNode currentNode = curr.getElement();
-
 				int stat = currentNode.getStatus();
-
-				if (getValidMoves(board)[0] <= 4 && getValidMoves(board)[0] >= 3)
-					if (currentNode.isTerminal()) {
-						selectSpot(currentNode.getInitialMove(), pane.getPossibility(), currentNode.getStatus() + "");
-
-					}
 				minStatus = minStatus >= stat ? stat : minStatus;
 				curr = curr.getNext();
 			}
@@ -479,52 +421,6 @@ public class TicTacToe {
 	}
 
 	public void emptyCanvas(MyPane pane) {
-
-		if (currentRound + 1 == totRound) {
-			if (player1.getScore() >= (totRound - 1) / 2) {
-				Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-
-				alert.setContentText(player1.getName() + " has already won the game. Continue?");
-				ButtonType buttonTypeOne = new ButtonType("continue");
-				ButtonType buttonTypeTwo = new ButtonType("Finish");
-
-				alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
-
-				// Show the alert and wait for the choice
-				alert.showAndWait().ifPresent(response -> {
-					if (response == buttonTypeOne) {
-
-					} else if (response == buttonTypeTwo) {
-						gameOver(pane);
-
-					}
-				});
-
-			}
-
-			if (player2.getScore() >= (totRound - 1) / 2) {
-				Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-
-//				alert.setContentText(null)
-				alert.setContentText(player2.getName() + " has already won the game. Continue?");
-				ButtonType buttonTypeOne = new ButtonType("continue");
-				ButtonType buttonTypeTwo = new ButtonType("Finish");
-
-				alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
-
-				// Show the alert and wait for the choice
-				alert.showAndWait().ifPresent(response -> {
-					if (response == buttonTypeOne) {
-
-					} else if (response == buttonTypeTwo) {
-						gameOver(pane);
-
-					}
-				});
-
-			}
-
-		}
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2.5), e -> {
 			// clear button pictures and enable them
 			pane.getB1().setGraphic(null);
@@ -569,56 +465,18 @@ public class TicTacToe {
 
 	}
 
-	MyPane pane;
 
 	private void humanPlay(MyPane pane) {
 
-		pane.getB1().setOnAction(e -> {
-
-			doIt(pane, 1);
-
-		});
-
-		pane.getB2().setOnAction(e -> {
-
-			doIt(pane, 2);
-
-		});
-		pane.getB3().setOnAction(e -> {
-			doIt(pane, 3);
-
-		});
-		pane.getB4().setOnAction(e -> {
-
-			doIt(pane, 4);
-
-		});
-		pane.getB5().setOnAction(e -> {
-
-			doIt(pane, 5);
-
-		});
-
-		pane.getB6().setOnAction(e -> {
-
-			doIt(pane, 6);
-
-		});
-
-		pane.getB7().setOnAction(e -> {
-
-			doIt(pane, 7);
-
-		});
-		pane.getB8().setOnAction(e -> {
-
-			doIt(pane, 8);
-
-		});
-		pane.getB9().setOnAction(e -> {
-
-			doIt(pane, 9);
-		});
+		pane.getB1().setOnAction(e ->doIt(pane, 1));
+		pane.getB2().setOnAction(e -> doIt(pane, 2));
+		pane.getB3().setOnAction(e -> doIt(pane, 3));
+		pane.getB4().setOnAction(e -> doIt(pane, 4));
+		pane.getB5().setOnAction(e -> doIt(pane, 5));
+		pane.getB6().setOnAction(e -> doIt(pane, 6));
+		pane.getB7().setOnAction(e -> doIt(pane, 7));
+		pane.getB8().setOnAction(e -> doIt(pane, 8));
+		pane.getB9().setOnAction(e -> doIt(pane, 9));
 
 	}
 
