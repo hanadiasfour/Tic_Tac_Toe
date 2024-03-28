@@ -34,7 +34,6 @@ public class MyPane {
 	private TicTacToe game;
 	private boolean isSolo;
 	private Line line1, line2, crossLine;
-	private String[][] possibility;
 
 	public MyPane() {
 
@@ -551,8 +550,6 @@ public class MyPane {
 
 		nextRound.setVisible(false);
 
-		possibility = new String[3][3];
-
 		// initializing label
 		Label round = new Label("/ " + roundtxf.getText());// the total reference round
 
@@ -888,98 +885,7 @@ public class MyPane {
 		}
 
 	}
-
-	public Stage getprobabilityStage(String[][] board, int move) {
-
-		Stage stage = new Stage();
-
-		GridPane grid = new GridPane();
-
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (board[i][j] != null) {
-					Label l = new Label(board[i][j]);
-
-					l.setStyle("-fx-font-size: 25px;-fx-font-weight: bold;");
-					l.setAlignment(Pos.CENTER);
-					l.setPadding(new Insets(30, 30, 30, 45));
-
-					grid.add(l, j, i);
-
-				} else {
-					Label l = new Label(getTheStat(i, j));
-					l.setAlignment(Pos.CENTER);
-					l.setStyle("-fx-font-size: 18px;-fx-font-weight: bold;");
-					l.setPadding(new Insets(10, 10, 10, 10));
-
-					grid.add(l, j, i);
-
-				}
-			}
-		}
-
-		Label choice = new Label("Computer Chose Box: " + move);
-		choice.setStyle("-fx-font-size: 20px;-fx-font-weight: bold;");
-		choice.setPadding(new Insets(20, 10, 20, 30));
-
-		Label title = new Label("MinMax Algorithm Options: ");
-		title.setStyle("-fx-font-size: 25px;-fx-font-weight: bold;");
-		title.setPadding(new Insets(20, 10, 20, 10));
-
-		BorderPane root = new BorderPane();
-		root.setStyle("-fx-background-color:white;");
-		root.setCenter(grid);
-		root.setBottom(choice);
-		root.setTop(title);
-		root.setAlignment(grid, Pos.CENTER);
-		root.setAlignment(choice, Pos.CENTER);
-		root.setAlignment(title, Pos.CENTER);
-
-		// setting column and row constraints
-		ColumnConstraints col1 = new ColumnConstraints(120);
-		ColumnConstraints col2 = new ColumnConstraints(120);
-		ColumnConstraints col3 = new ColumnConstraints(120);
-
-		RowConstraints row1 = new RowConstraints(120);
-		RowConstraints row2 = new RowConstraints(120);
-		RowConstraints row3 = new RowConstraints(120);
-
-		grid.getRowConstraints().addAll(row1, row2, row3);
-		grid.getColumnConstraints().addAll(col1, col2, col3);
-
-		grid.setGridLinesVisible(true);
-		grid.setAlignment(Pos.CENTER);
-		grid.setStyle("-fx-background-color:white;");
-
-		Scene s = new Scene(root, 500, 500);
-		stage.setTitle("MinMax Options");
-		stage.setScene(s);
-
-		return stage;
-
-	}
-
-	private String getTheStat(int i, int j) {
-
-		String[] options = possibility[i][j].split(" ");
-		String ans = "Box " + getBoxNumber(i, j);
-		if (options.length == 1) {
-			int value = Integer.parseInt(options[0]);
-			ans += ":\n" + value + " = " + getWordRepresentation(value);
-
-		} else {
-
-			int value1 = Integer.parseInt(options[0]);
-			int value2 = Integer.parseInt(options[1]);
-
-			ans += ":\n" + value1 + " = " + getWordRepresentation(value1) + "\n" + value2 + " = "
-					+ getWordRepresentation(value2);
-
-		}
-
-		return ans;
-
-	}
+	
 
 	private int getBoxNumber(int i, int j) {
 
@@ -1186,14 +1092,6 @@ public class MyPane {
 
 	public Line getCrossLine() {
 		return crossLine;
-	}
-
-	public String[][] getPossibility() {
-		return possibility;
-	}
-
-	public void setPossibility(String[][] possibility) {
-		this.possibility = possibility;
 	}
 
 	public Button getNextRound() {
