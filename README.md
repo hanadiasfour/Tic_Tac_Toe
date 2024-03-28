@@ -10,7 +10,6 @@ In this project, we combine the concepts of minimax and evaluation functions to 
      - **Unbeatable AI (Minimax Algorithm):** Implement an AI opponent that plays optimally using the Minimax algorithm.
        
 - **Player Customization:** Choose the player to begin, enter player names, choose player icons, and number of rounds to play.
-- **Advanced AI Information:** When playing against the advanced AI, the computer provides probabilities for each possible move and announces its selection.
 - **Interactive Application Interface Developed using JavaFX**
 
 ## Getting Started
