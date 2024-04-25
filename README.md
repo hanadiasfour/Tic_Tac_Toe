@@ -1,7 +1,7 @@
 # Tic-Tac-Toe Minimax AI Algorithm
 
 ## Overview
-The main goal of implementing this Tic-Tac-Toe game was to use the the Minimax algorithm to let the computer play a perfect game. The other modes include random moves, two human players.
+The main goal of recreating this version of the Tic-Tac-Toe game was to implement the the Minimax algorithm allowing the computer play a perfect game. The other modes include random moves, two human players.
 
 ## Features
 - **Three Game Modes:**
@@ -19,7 +19,7 @@ To start playing Tic-Tac-Toe with our AI algorithm, follow these steps:
 3. Choose your preferred game mode.
 4. Enjoy the game and have fun!
 
-I hope you have a great time playing this Tic-Tac-Toe.
+I hope you have a great time playing my Tic-Tac-Toe. Have fun!
 
 ## Opening Page:
 ![T1](https://github.com/hanadiasfour/Tic_Tac_Toe/assets/91291021/e6bdbaf8-0520-4cb4-8ee3-bf2d885a43b8)
