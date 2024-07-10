@@ -13,13 +13,13 @@ The main goal of recreating this version of the Tic-Tac-Toe game was to implemen
 - **GUI Developed using JavaFX**
 
 ## Getting Started
-To start playing Tic-Tac-Toe with our AI algorithm, follow these steps:
-1. Clone this repository to your local machine.
+To start playing this Tic-Tac-Toe:
+1. Clone this repository.
 2. Run the application.
 3. Choose your preferred game mode.
 4. Enjoy the game and have fun!
 
-I hope you have a great time playing my Tic-Tac-Toe. Have fun!
+I hope you enjoy playing my Tic-Tac-Toe as much as I enjoyed creating it. Have fun!
 
 ## Opening Page:
 ![T1](https://github.com/hanadiasfour/Tic_Tac_Toe/assets/91291021/e6bdbaf8-0520-4cb4-8ee3-bf2d885a43b8)
